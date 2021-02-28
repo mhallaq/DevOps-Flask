@@ -1,0 +1,51 @@
+version: "3.8"
+services:
+  db:
+    container_name: mysql
+    image: mysql:5.6.51 
+    command: '--default-authentication-plugin=mysql_native_password'
+    restart: always
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+  
+  front-end:
+    container_name: front-end
+    build: ./front-end
+    restart: always
+    ports:
+    - target: 5000
+      published: 5000
+    volumes:
+      - ./front-end:/app
+
+  back-end:
+    container_name: back-end
+    build: ./back-end
+    restart: always
+    ports:
+    - target: 5001
+      published: 5001
+  
+  lon-service:
+    container_name: lon-service
+    build: ./lon-service
+    restart: always
+    ports:
+    - target: 5002
+      published: 5002
+
+
+  lat-service:
+    container_name: lat-service
+    build: ./lat-service
+    restart: always
+    ports:
+    - target: 5003
+      published: 5003
+volumes:
+  db-data:

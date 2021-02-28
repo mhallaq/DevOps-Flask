@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class="container theme-showcase col-sm-6 col-sm-offset-3" role="main">
+
+      <div class="row">
+        <div>
+          <div>
+            <h3>Weather in Location longitude: {{lon}}, Latitude: {{lat}}</h3>
+            <h2>{{temp}}°C </h2>
+            <h3>{{weather}}</h3>
+            <h4>Feels like: {{feels_like}}°C</h4>
+          </div>
+        </br>
+          <a href="{{ url_for('weather_dashboard') }}">REFRESH</a>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">Inquired Weathers</h3>
+            </div>
+
+            {% for weather in all_weather %}
+            <div class="panel-body">
+              <ul class="nav nav-pills" role="tablist">
+                <li><a>Id: <span class="well">{{weather.id}}</span></a></li>
+                <li><a>Longitude: <span class="well">{{weather.lon}}</span></a></li>
+                <li><a>Latitude: <span class="well">{{weather.lat}}</span></a></li>
+                <li><a>Temprature: <span class="well">{{weather.temp}}</span></a></li>
+                <li><a>Weather: <span class="well">{{weather.weather_status}}</span></a></li>
+              </ul>
+            </div>
+            {% endfor %}
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  {% endblock %}
