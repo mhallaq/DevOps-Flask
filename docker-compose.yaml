@@ -1,51 +1,76 @@
 version: "3.8"
 services:
-  db:
+  mysql:
     container_name: mysql
-    image: mysql:5.6.51 
+    image: mysql:5.6.51
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        #      placement:
+        #        constraints: [node.role==manager]
     command: '--default-authentication-plugin=mysql_native_password'
-    restart: always
     volumes:
-      - db-data:/var/lib/mysql
+      - type: volume
+        source: db-data
+        target: /var/lib/mysql
+        #    ports:
+        #    - target: 3306
+        #      published: 3306
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: mydb
       MYSQL_USER: user
       MYSQL_PASSWORD: user
-  
+
   front-end:
     container_name: front-end
+    image: mhallaq/front-end:latest
     build: ./front-end
-    restart: always
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#        condition: on-failure
+        #      placement:
+        #        constraints: [node.role == worker]
     ports:
     - target: 5000
       published: 5000
-    volumes:
-      - ./front-end:/app
-
+      #  volumes:
+      #      - ./front-end:/app
+    depends_on:
+      - mysql
+      - back-end
+ 
   back-end:
     container_name: back-end
+    image: mhallaq/back-end
     build: ./back-end
     restart: always
     ports:
     - target: 5001
       published: 5001
+    depends_on:
+      - lon-service
+      - lat-service
   
   lon-service:
     container_name: lon-service
+    image: mhallaq/lon-service
     build: ./lon-service
     restart: always
     ports:
     - target: 5002
       published: 5002
-
-
+  
   lat-service:
     container_name: lat-service
+    image: mhallaq/lat-service
     build: ./lat-service
     restart: always
     ports:
     - target: 5003
       published: 5003
+
 volumes:
   db-data:
