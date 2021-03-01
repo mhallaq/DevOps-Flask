@@ -2,7 +2,7 @@ from flask import Flask,request,jsonify
 import requests
 import configparser
 
-app=Flask(__name__)
+app = Flask(__name__)
 
 @app.route('/weather',methods=['GET'])
 def weather():
@@ -41,7 +41,7 @@ def get_weather_results(lon,lat,api_key):
 
 
 if __name__=='__main__':
-    app.run(debug=True,host='0.0.0.0',port=5001)
+    app.run(host='0.0.0.0') #,port=5001)
 
 
 

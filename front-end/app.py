@@ -15,6 +15,8 @@ class weather_table(db.Model):
     feels_like=db.Column(db.String(10), nullable=False)
     weather_status=db.Column(db.String(100), nullable=False)
 
+db.create_all()
+
 @app.route('/')
 def weather_dashboard():
     data=get_weather_results()

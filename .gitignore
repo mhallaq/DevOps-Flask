@@ -1,2 +1,7 @@
 /common
 
+.coverage
+
+__pycache__
+
+/projectinv
