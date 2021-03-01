@@ -1,5 +1,16 @@
 version: "3.8"
 services:
+  nginx:
+    image: nginx:alpine
+    volumes:
+    - type: bind
+      source: ./nginx/nginx.conf
+      target: /etc/nginx/nginx.conf
+    ports:
+    -  target: 80
+       published: 80
+    depends_on: 
+      - front-end
   mysql:
     container_name: mysql
     image: mysql:5.6.51
