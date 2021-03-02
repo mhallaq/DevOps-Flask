@@ -23,7 +23,7 @@ pipeline{
             }
             stage('Deploy App'){
                 steps{
-                    sshagent(credentials: ['swarm-deployment'], ignoreMissing: true) {
+                    sshagent(credentials: ['jenkins'], ignoreMissing: true) {
                             sh "ssh -o StrictHostKeyChecking=no malhallaq@10.138.0.2 docker stack deploy --compose-file docker-compose.yaml weather-app"
                         }
                 }
