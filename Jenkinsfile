@@ -16,6 +16,9 @@ pipeline{
             }
             stage('Tag & Push Image'){
                 steps{
+                    dir("${env.WORKSPACE}/front-end"){
+                           sh "pwd"
+                    }
                     script{
                         if (env.rollback == 'false'){
                             docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
