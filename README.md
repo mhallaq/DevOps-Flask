@@ -159,6 +159,10 @@ This application is containirzed and you need to run Docker containers after bui
 
 <br/>
 
+![NGINX](https://i.imgur.com/lO4ikSz.png)
+
+<br/>
+
 ### Application Screenshots
 
 <br/>
