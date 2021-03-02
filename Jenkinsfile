@@ -15,7 +15,7 @@ pipeline{
                     script{
                         if (env.rollback == 'false'){
                             docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
-                                image.push("latest")
+                                image.push("v1")
                             }
                         }
                     }
