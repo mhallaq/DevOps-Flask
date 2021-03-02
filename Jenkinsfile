@@ -24,7 +24,7 @@ pipeline{
             stage('Deploy App'){
                 steps{
                     sshagent(credentials: ['swarm-deployment'], ignoreMissing: true) {
-                    sh "ss -o StrictHostKeyChecking=no malhallaq@10.138.0.2 docker stack deploy --compose-file docker-compose.yaml weather-app" 
+                    sh 'ss -o StrictHostKeyChecking=no malhallaq@10.138.0.2 docker stack deploy --compose-file docker-compose.yaml weather-app'
                         }
                 }
             }
