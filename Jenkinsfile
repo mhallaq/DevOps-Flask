@@ -22,10 +22,9 @@ pipeline{
                 }
             }
             stage('Deploy App'){
-                def dockerRun='docker stack deploy --compose-file docker-compose.yaml weather-app'
                 steps{
                     sshagent(credentials: ['swarm-deployment'], ignoreMissing: true) {
-                            sh "ssh -o StrictHostKeyChecking=no malhallaq@10.138.0.2 ${dockerRun}"
+                            sh "ssh -o StrictHostKeyChecking=no malhallaq@10.138.0.2 docker stack deploy --compose-file docker-compose.yaml weather-app"
                         }
                 }
             }
